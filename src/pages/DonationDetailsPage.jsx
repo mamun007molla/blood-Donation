@@ -15,6 +15,9 @@ import {
 import { AuthContext } from "../Provider/AuthProvider";
 
 const DonationRequestDetails = () => {
+     useEffect(() => {
+        document.title = "Donation Details | BloodCare";
+      }, []);
   const { id } = useParams();
   const navigate = useNavigate();
   const { user, loading } = useContext(AuthContext);
@@ -33,7 +36,7 @@ const DonationRequestDetails = () => {
     }
 
     axios
-      .get(`http://localhost:3000/requests/${id}`)
+      .get(`https://mission11scic.vercel.app/requests/${id}`)
       .then((res) => {
         setData(res.data);
       })
@@ -42,13 +45,16 @@ const DonationRequestDetails = () => {
       });
   }, [loading, user, id, navigate]);
 
-  // Confirm donation → update status
+  
   const handleDonate = async () => {
-    await axios.patch(`http://localhost:3000/requests/update-status/${id}`, {
-      donationStatus: "inprogress",
-      donorName: user.displayName,
-      donorEmail: user.email,
-    });
+    await axios.patch(
+      `https://mission11scic.vercel.app/requests/update-status/${id}`,
+      {
+        donationStatus: "inprogress",
+        donorName: user.displayName,
+        donorEmail: user.email,
+      }
+    );
 
     alert("Donation confirmed. Request is now IN PROGRESS!");
     navigate("/donationRequests");
@@ -73,32 +79,32 @@ const DonationRequestDetails = () => {
   return (
     <div className="w-full flex justify-center py-12 px-4">
       <div className="w-full max-w-xl bg-white shadow-xl border border-gray-100 rounded-2xl p-8">
-        
-        {/* Back Button */}
+       
         <button
-          onClick={() => navigate('/donationRequests')}
+          onClick={() => navigate("/donationRequests")}
           className="flex items-center gap-2 text-gray-600 hover:text-red-600 hover:gap-3 transition-all font-medium mb-6"
         >
           <ArrowLeft size={20} />
           Back
         </button>
 
-        {/* Page Title */}
+      
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
           Donation Request Details
         </h2>
 
-        {/* Data Display */}
+       
         <div className="space-y-5 text-gray-700 text-lg">
-
           <p className="flex items-center gap-2">
             <UserRound size={22} className="text-red-500" />
-            <span className="font-semibold">Recipient:</span> {data.recipientName}
+            <span className="font-semibold">Recipient:</span>{" "}
+            {data.recipientName}
           </p>
 
           <p className="flex items-center gap-2">
             <Droplet size={22} className="text-red-500" />
-            <span className="font-semibold">Blood Group:</span> {data.bloodGroup}
+            <span className="font-semibold">Blood Group:</span>{" "}
+            {data.bloodGroup}
           </p>
 
           <p className="flex items-center gap-2">
@@ -125,13 +131,14 @@ const DonationRequestDetails = () => {
           <p className="pt-2 text-gray-800 flex gap-2 items-start">
             <FileText size={22} className="text-red-500 mt-1" />
             <span>
-              <span className="font-semibold">Message:</span><br />
+              <span className="font-semibold">Message:</span>
+              <br />
               <span className="text-gray-600">{data.requestMessage}</span>
             </span>
           </p>
         </div>
 
-        {/* DONATE BUTTON */}
+      
         {data.donationStatus === "pending" && (
           <button
             onClick={() => setOpenModal(true)}
@@ -141,11 +148,10 @@ const DonationRequestDetails = () => {
           </button>
         )}
 
-        {/* MODAL */}
+        
         {openModal && (
           <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
             <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm space-y-4">
-              
               <h3 className="text-xl font-bold text-gray-700">
                 Confirm Donation
               </h3>
@@ -177,11 +183,9 @@ const DonationRequestDetails = () => {
                   Cancel
                 </button>
               </div>
-
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

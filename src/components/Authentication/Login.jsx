@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Eye, EyeOff, LogIn } from "lucide-react";
@@ -11,7 +11,9 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
 
   const { signInUser } = useContext(AuthContext);
-
+ useEffect(() => {
+    document.title = "Login | BloodCare";
+  }, []);
   const handleSignin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -38,7 +40,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-red-50 to-rose-200 p-4">
       <div className="w-full max-w-md backdrop-blur-xl bg-white/60 rounded-3xl shadow-2xl p-8 border border-white/30">
 
-        {/* Header */}
+       
         <div className="text-center mb-6">
           <h1 className="text-4xl font-extrabold text-gray-800">
             Welcome Back
@@ -48,10 +50,10 @@ const Login = () => {
           </p>
         </div>
 
-        {/* Form */}
+       
         <form onSubmit={handleSignin} className="space-y-5">
 
-          {/* Email */}
+          
           <div className="relative">
             <input
               name="email"
@@ -65,7 +67,7 @@ const Login = () => {
             </label>
           </div>
 
-          {/* Password */}
+        
           <div className="relative">
             <input
               name="password"
@@ -78,7 +80,7 @@ const Login = () => {
               Password
             </label>
 
-            {/* Toggle eye */}
+            
             <span
               onClick={() => setShowPass(!showPass)}
               className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
@@ -87,14 +89,14 @@ const Login = () => {
             </span>
           </div>
 
-          {/* Error */}
+         
           {error && (
             <p className="text-red-600 text-center font-semibold text-sm">
               {error}
             </p>
           )}
 
-          {/* Login Button */}
+          
           <button
             type="submit"
             className="w-full flex items-center justify-center gap-2 py-3 text-lg font-semibold text-white rounded-xl bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-lg hover:shadow-red-200 transition"
@@ -103,7 +105,7 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Signup Link */}
+       
         <p className="text-center text-gray-700 mt-5">
           Don't have an account?{" "}
           <Link

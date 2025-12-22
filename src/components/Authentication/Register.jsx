@@ -41,13 +41,25 @@ const Register = () => {
     const photoFile = form.photoURL.files[0];
 
     if (password.length < 6) {
-      return Swal.fire("Error", "Password must be at least 6 characters!", "error");
+      return Swal.fire(
+        "Error",
+        "Password must be at least 6 characters!",
+        "error"
+      );
     }
     if (!/[A-Z]/.test(password)) {
-      return Swal.fire("Error", "Must include at least 1 uppercase letter!", "error");
+      return Swal.fire(
+        "Error",
+        "Must include at least 1 uppercase letter!",
+        "error"
+      );
     }
     if (!/[a-z]/.test(password)) {
-      return Swal.fire("Error", "Must include at least 1 lowercase letter!", "error");
+      return Swal.fire(
+        "Error",
+        "Must include at least 1 lowercase letter!",
+        "error"
+      );
     }
     if (password !== confirmPassword) {
       return Swal.fire("Error", "Passwords do not match!", "error");
@@ -77,7 +89,7 @@ const Register = () => {
           subDistrict: subdis,
         };
 
-        axios.post("http://localhost:3000/users", formData);
+        axios.post("https://mission11scic.vercel.app/users", formData);
 
         Swal.fire("Success!", "Account created successfully!", "success");
         navigate(location.state ? location.state : "/");
@@ -90,11 +102,8 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-red-100 via-rose-50 to-red-200 p-6">
-
       <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl shadow-2xl rounded-3xl p-10 border border-white/40">
-      
-
-        {/* Header */}
+        
         <div className="text-center mb-8">
           <h1 className="text-4xl font-extrabold text-red-600 drop-shadow">
             Create Your Account
@@ -104,10 +113,12 @@ const Register = () => {
           </p>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleRegister} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-          {/* Name */}
+      
+        <form
+          onSubmit={handleRegister}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+         
           <div className="col-span-2">
             <label className="font-medium">Full Name</label>
             <input
@@ -119,7 +130,7 @@ const Register = () => {
             />
           </div>
 
-          {/* Email */}
+         
           <div className="col-span-2">
             <label className="font-medium">Email Address</label>
             <input
@@ -131,7 +142,7 @@ const Register = () => {
             />
           </div>
 
-          {/* photoURL */}
+          
           <div className="col-span-2">
             <label className="font-medium">Profile Photo</label>
             <input
@@ -142,7 +153,7 @@ const Register = () => {
             />
           </div>
 
-          {/* Blood Group */}
+          
           <div>
             <label className="font-medium">Blood Group</label>
             <select
@@ -151,13 +162,15 @@ const Register = () => {
               className="select select-bordered w-full bg-white/60"
             >
               <option value="">Select Blood Group</option>
-              {["A+","A-","B+","B-","O+","O-","AB+","AB-"].map((b) => (
-                <option key={b} value={b}>{b}</option>
+              {["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"].map((b) => (
+                <option key={b} value={b}>
+                  {b}
+                </option>
               ))}
             </select>
           </div>
 
-          {/* District */}
+       
           <div>
             <label className="font-medium">District</label>
             <select
@@ -167,12 +180,14 @@ const Register = () => {
             >
               <option value="">Select District</option>
               {district.map((d) => (
-                <option key={d.id} value={d.name}>{d.name}</option>
+                <option key={d.id} value={d.name}>
+                  {d.name}
+                </option>
               ))}
             </select>
           </div>
 
-          {/* Upazila */}
+         
           <div className="col-span-2 md:col-span-1">
             <label className="font-medium">Upazila</label>
             <select
@@ -182,12 +197,14 @@ const Register = () => {
             >
               <option value="">Select Upazila</option>
               {subDistrict.map((d) => (
-                <option key={d.id} value={d.name}>{d.name}</option>
+                <option key={d.id} value={d.name}>
+                  {d.name}
+                </option>
               ))}
             </select>
           </div>
 
-          {/* Password */}
+          
           <div className="col-span-2 md:col-span-1">
             <label className="font-medium">Password</label>
             <input
@@ -199,7 +216,7 @@ const Register = () => {
             />
           </div>
 
-          {/* Confirm Password */}
+          
           <div className="col-span-2 md:col-span-1">
             <label className="font-medium">Confirm Password</label>
             <input
@@ -217,7 +234,7 @@ const Register = () => {
             </p>
           )}
 
-          {/* Button */}
+          
           <button
             type="submit"
             className="col-span-2 btn bg-linear-to-r from-red-500 to-rose-500 text-white text-lg shadow-lg hover:shadow-rose-200 transition flex items-center justify-center gap-2 mt-4"
@@ -225,17 +242,18 @@ const Register = () => {
             <UserPlus size={22} />
             Create Account
           </button>
-
         </form>
 
-        {/* Footer */}
+       
         <p className="mt-6 text-center text-gray-700">
           Already have an account?{" "}
-          <Link to="/login" className="text-red-600 font-semibold hover:underline">
+          <Link
+            to="/login"
+            className="text-red-600 font-semibold hover:underline"
+          >
             Login here
           </Link>
         </p>
-
       </div>
     </div>
   );

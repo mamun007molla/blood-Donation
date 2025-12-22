@@ -7,7 +7,9 @@ import { useAxiosSecure } from "../../hooks/useAxiosSecure";
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-
+ useEffect(() => {
+    document.title = "Admin/Volunteer | BloodCare";
+  }, []);
   const [stats, setStats] = useState({
     totalDonors: 0,
     totalFunding: 0,

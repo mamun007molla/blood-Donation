@@ -4,9 +4,9 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { useEffect } from "react";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://mission11scic.vercel.app",
 });
-// Add a request interceptor
+
 export const useAxiosSecure = () => {
   const { user } = useContext(AuthContext);
   useEffect(() => {
@@ -27,5 +27,5 @@ export const useAxiosSecure = () => {
       axiosSecure.interceptors.response.eject(resInterceptor);
     };
   }, [user]);
-    return axiosSecure;
+  return axiosSecure;
 };

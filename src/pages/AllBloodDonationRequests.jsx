@@ -3,6 +3,9 @@ import axios from "axios";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const AllBloodDonationRequests = () => {
+     useEffect(() => {
+        document.title = "All Requests | BloodCare";
+      }, []);
   const [requests, setRequests] = useState([]);
   const [filterValue, setFilterValue] = useState("all");
   const [page, setPage] = useState(1);
@@ -15,7 +18,7 @@ const AllBloodDonationRequests = () => {
 
   const fetchData = useCallback(async () => {
     const res = await axios.get(
-      `http://localhost:3000/requests?page=${page}&size=${size}&status=${filterValue}`
+      `https://mission11scic.vercel.app/requests?page=${page}&size=${size}&status=${filterValue}`
     );
 
     setRequests(res.data.result || []);
@@ -31,19 +34,19 @@ const AllBloodDonationRequests = () => {
     setPage(1);
   };
 
-  // DELETE (Admin only)
+  
   const deleteRequest = async (id) => {
     if (role !== "Admin") return alert("Not allowed!");
     if (confirm("Are you sure?")) {
-      await axios.delete(`http://localhost:3000/requests/${id}`);
+      await axios.delete(`https://mission11scic.vercel.app/requests/${id}`);
       fetchData();
     }
   };
 
-  // Status update (Admin + Volunteer)
+  
   const updateStatus = async (id, newStatus) => {
     await axios.patch(
-      `http://localhost:3000/requests/update-status/${id}`,
+      `https://mission11scic.vercel.app/requests/update-status/${id}`,
       { donationStatus: newStatus }
     );
 
@@ -54,7 +57,7 @@ const AllBloodDonationRequests = () => {
     );
   };
 
-  // Edit modal update (Admin only)
+ 
   const saveEdit = async () => {
     if (role !== "Admin") return alert("Not allowed!");
 
@@ -65,7 +68,7 @@ const AllBloodDonationRequests = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/requests/${id}`,
+        `https://mission11scic.vercel.app/requests/${id}`,
         updated
       );
 
@@ -76,9 +79,8 @@ const AllBloodDonationRequests = () => {
       } else {
         alert("Nothing updated!");
       }
-
     } catch (err) {
-      alert("Edit failed!",err);
+      alert("Edit failed!", err);
     }
   };
 
@@ -86,7 +88,7 @@ const AllBloodDonationRequests = () => {
     <div className="w-full max-w-6xl mx-auto p-5">
       <h1 className="text-2xl font-bold mb-4">All Blood Donation Requests</h1>
 
-      {/* FILTER BUTTON */}
+      
       <div className="flex gap-2 mb-6">
         {["all", "pending", "inprogress", "done", "canceled"].map((status) => (
           <button
@@ -101,7 +103,7 @@ const AllBloodDonationRequests = () => {
         ))}
       </div>
 
-      {/* TABLE */}
+     
       <div className="overflow-x-auto">
         <table className="table-auto w-full border text-left">
           <thead>
@@ -129,7 +131,7 @@ const AllBloodDonationRequests = () => {
                 <td className="p-2 border">{req.donationTime}</td>
                 <td className="p-2 border">{req.bloodGroup}</td>
 
-                {/* STATUS */}
+               
                 <td className="p-2 border">
                   <select
                     value={req.donationStatus}
@@ -144,8 +146,7 @@ const AllBloodDonationRequests = () => {
                 </td>
 
                 <td className="p-2 border flex gap-2">
-
-                  {/* EDIT (Admin only) */}
+                 
                   {role === "Admin" && (
                     <button
                       onClick={() => setEditItem(req)}
@@ -155,7 +156,7 @@ const AllBloodDonationRequests = () => {
                     </button>
                   )}
 
-                  {/* DELETE (Admin only) */}
+                 
                   {role === "Admin" && (
                     <button
                       onClick={() => deleteRequest(req._id)}
@@ -164,7 +165,6 @@ const AllBloodDonationRequests = () => {
                       Delete
                     </button>
                   )}
-
                 </td>
               </tr>
             ))}
@@ -172,7 +172,7 @@ const AllBloodDonationRequests = () => {
         </table>
       </div>
 
-      {/* PAGINATION */}
+      
       <div className="flex justify-center items-center mt-6 gap-3">
         <button
           disabled={page === 1}
@@ -195,11 +195,10 @@ const AllBloodDonationRequests = () => {
         </button>
       </div>
 
-      {/* EDIT MODAL */}
+      
       {editItem && role === "Admin" && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-5 rounded w-96 space-y-3">
-
             <h2 className="text-xl font-bold">Edit Request</h2>
 
             <input
@@ -279,11 +278,9 @@ const AllBloodDonationRequests = () => {
                 Save
               </button>
             </div>
-
           </div>
         </div>
       )}
-
     </div>
   );
 };

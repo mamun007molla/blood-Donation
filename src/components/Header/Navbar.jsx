@@ -15,7 +15,7 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 shadow-lg border-b border-red-100 transition">
       <nav className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
 
-        {/* LEFT LOGO */}
+        
         <Link
           to="/"
           className="text-3xl font-extrabold bg-linear-to-r from-red-600 to-rose-500 bg-clip-text text-transparent tracking-wide"
@@ -23,7 +23,7 @@ const Navbar = () => {
           BloodCare
         </Link>
 
-        {/* CENTER MENU */}
+        
         <ul className="hidden lg:flex items-center gap-8 text-lg font-medium text-gray-700 mx-auto">
 
           <NavLink
@@ -51,10 +51,10 @@ const Navbar = () => {
           )}
         </ul>
 
-        {/* RIGHT SIDE */}
+       
         <div className="flex items-center gap-3">
 
-          {/* WHEN LOGGED OUT → LOGIN BUTTON RIGHT SIDE */}
+          
           {!user && (
             <NavLink
               to="/login"
@@ -64,7 +64,7 @@ const Navbar = () => {
             </NavLink>
           )}
 
-          {/* WHEN LOGGED IN → AVATAR + BUTTONS RIGHT SIDE */}
+        
           {user && (
             <>
               <img
@@ -91,7 +91,7 @@ const Navbar = () => {
             </>
           )}
 
-          {/* MOBILE TOGGLE BUTTON */}
+          
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden hover:scale-110 transition"
@@ -101,7 +101,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* MOBILE MENU */}
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-gray-200 py-4 px-6 animate-slide-down">
 

@@ -9,19 +9,23 @@ const DonorDashboard = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load 3 recent requests
+   useEffect(() => {
+      document.title = "Donor| BloodCare";
+    }, []);
   useEffect(() => {
     if (!user?.email) return;
 
     axios
-      .get(`http://localhost:3000/requests/user/${user.email}?page=1&size=3`)
+      .get(
+        `https://mission11scic.vercel.app/requests/user/${user.email}?page=1&size=3`
+      )
       .then((res) => {
         setRequests(res.data.result);
         setLoading(false);
       });
   }, [user]);
 
-  // Delete request
+ 
   const handleDelete = (id) => {
     Swal.fire({
       title: "Delete Request?",
@@ -32,18 +36,20 @@ const DonorDashboard = () => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:3000/requests/${id}`).then(() => {
-          setRequests(requests.filter((r) => r._id !== id));
-          Swal.fire("Deleted!", "Request removed.", "success");
-        });
+        axios
+          .delete(`https://mission11scic.vercel.app/requests/${id}`)
+          .then(() => {
+            setRequests(requests.filter((r) => r._id !== id));
+            Swal.fire("Deleted!", "Request removed.", "success");
+          });
       }
     });
   };
 
-  // Update Status
+ 
   const handleStatus = (id, newStatus) => {
     axios
-      .patch(`http://localhost:3000/requests/update-status/${id}`, {
+      .patch(`https://mission11scic.vercel.app/requests/update-status/${id}`, {
         donationStatus: newStatus,
       })
       .then(() => {
@@ -65,12 +71,12 @@ const DonorDashboard = () => {
 
   return (
     <div className="p-6">
-      {/* Welcome message */}
+     
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
         Welcome, <span className="text-red-600">{user.displayName}</span> 👋
       </h1>
 
-      {/* Hide table if no requests */}
+     
       {requests.length > 0 ? (
         <div className="bg-white shadow-lg border rounded-xl p-6">
           <h2 className="text-xl font-bold mb-4 text-gray-700">
@@ -119,7 +125,7 @@ const DonorDashboard = () => {
                     </td>
 
                     <td className="flex gap-2">
-                      {/* VIEW BUTTON */}
+                     
                       <Link
                         to={`/dashboard/request/${req._id}`}
                         className="btn btn-xs btn-info"
@@ -127,7 +133,6 @@ const DonorDashboard = () => {
                         View
                       </Link>
 
-                      {/* EDIT BUTTON */}
                       <Link
                         to={`/dashboard/edit-request/${req._id}`}
                         className="px-3 py-1 bg-yellow-500 text-white rounded"
@@ -135,7 +140,7 @@ const DonorDashboard = () => {
                         Edit
                       </Link>
 
-                      {/* DELETE BUTTON */}
+                     
                       <button
                         onClick={() => handleDelete(req._id)}
                         className="btn btn-xs btn-error"
@@ -143,7 +148,7 @@ const DonorDashboard = () => {
                         Delete
                       </button>
 
-                      {/* STATUS BUTTONS */}
+                      
                       {req.donationStatus === "inprogress" && (
                         <>
                           <button
@@ -168,7 +173,7 @@ const DonorDashboard = () => {
             </table>
           </div>
 
-          {/* VIEW ALL BUTTON */}
+       
           <div className="text-right mt-4">
             <Link
               to="/dashboard/my-donation-requests"

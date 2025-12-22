@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const SearchDonors = () => {
+     useEffect(() => {
+        document.title = "Search Donors | BloodCare";
+      }, []);
   const [bloodGroup, setBloodGroup] = useState("");
   const [district, setDistrict] = useState("");
   const [upazila, setUpazila] = useState("");
@@ -10,7 +13,7 @@ const SearchDonors = () => {
   const [upazilaData, setUpazilaData] = useState([]);
 
   const [donors, setDonors] = useState([]);
-  const [searched, setSearched] = useState(false); // hides result area initially
+  const [searched, setSearched] = useState(false);
 
   useEffect(() => {
     axios.get("/district.json").then((res) => {
@@ -27,7 +30,7 @@ const SearchDonors = () => {
     setSearched(true);
 
     const res = await axios.get(
-      `http://localhost:3000/donors?bloodGroup=${bloodGroup}&district=${district}&upazila=${upazila}`
+      `https://mission11scic.vercel.app/donors?bloodGroup=${bloodGroup}&district=${district}&upazila=${upazila}`
     );
 
     setDonors(res.data);
@@ -40,14 +43,13 @@ const SearchDonors = () => {
         Find a Blood Donor ❤️
       </h1>
 
-      {/* Search Form */}
+    
       <form
         onSubmit={handleSearch}
         className="max-w-4xl mx-auto bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl border border-white/50 grid grid-cols-1 md:grid-cols-3 gap-6"
       >
-        {/* blood group */}
+       
         <select
-          
           className="select select-bordered w-full"
           onChange={(e) => setBloodGroup(e.target.value)}
         >
@@ -62,9 +64,8 @@ const SearchDonors = () => {
           <option value="AB-">AB-</option>
         </select>
 
-        {/* district */}
+        
         <select
-          
           className="select select-bordered w-full"
           onChange={(e) => setDistrict(e.target.value)}
         >
@@ -76,9 +77,8 @@ const SearchDonors = () => {
           ))}
         </select>
 
-        {/* upazila */}
+       
         <select
-          
           className="select select-bordered w-full"
           onChange={(e) => setUpazila(e.target.value)}
         >
@@ -95,7 +95,7 @@ const SearchDonors = () => {
         </button>
       </form>
 
-      {/* Results */}
+      
       {searched && (
         <div className="max-w-6xl mx-auto mt-14">
           {donors.length === 0 ? (

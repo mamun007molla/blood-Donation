@@ -5,11 +5,13 @@ import axios from "axios";
 const EditDonationRequest = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+ useEffect(() => {
+    document.title = "Edit Request | BloodCare";
+  }, []);
   const [data, setData] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/requests/${id}`).then((res) => {
+    axios.get(`https://mission11scic.vercel.app/requests/${id}`).then((res) => {
       setData(res.data);
     });
   }, [id]);
@@ -17,7 +19,7 @@ const EditDonationRequest = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    await axios.patch(`http://localhost:3000/requests/${id}`, data);
+    await axios.patch(`https://mission11scic.vercel.app/requests/${id}`, data);
 
     alert("Request updated successfully!");
 
@@ -26,7 +28,6 @@ const EditDonationRequest = () => {
 
   return (
     <form onSubmit={handleUpdate} className="p-5 max-w-lg mx-auto space-y-3">
-
       <input
         className="input input-bordered w-full"
         value={data.recipientName || ""}
@@ -36,7 +37,9 @@ const EditDonationRequest = () => {
       <input
         className="input input-bordered w-full"
         value={data.recipientDistrict || ""}
-        onChange={(e) => setData({ ...data, recipientDistrict: e.target.value })}
+        onChange={(e) =>
+          setData({ ...data, recipientDistrict: e.target.value })
+        }
       />
 
       <input
@@ -46,7 +49,6 @@ const EditDonationRequest = () => {
       />
 
       <button className="btn btn-primary w-full">Update</button>
-
     </form>
   );
 };

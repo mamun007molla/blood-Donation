@@ -6,8 +6,10 @@ const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [users, setUsers] = useState([]);
   const [filterValue, setFilterValue] = useState("all");
-
-  // Load Users
+ useEffect(() => {
+    document.title = "All Users | BloodCare";
+  }, []);
+ 
   const fetchData = async () => {
     const res = await axiosSecure.get("/users");
     setUsers(res.data);
@@ -17,18 +19,18 @@ const AllUsers = () => {
     fetchData();
   }, []);
 
-  // Filter Users
+  
   const filteredUsers = users.filter((u) =>
     filterValue === "all" ? true : u.status === filterValue
   );
 
-  // Update User Status
+ 
   const updateUserStatus = async (id, status) => {
     await axiosSecure.patch(`/users/update/${id}`, { status });
     fetchData();
   };
 
-  // Update User Role
+  
   const updateUserRole = async (id, role) => {
     await axiosSecure.patch(`/users/update/${id}`, { role });
     fetchData();
@@ -37,7 +39,7 @@ const AllUsers = () => {
   return (
     <div className="p-6">
 
-      {/* HEADER */}
+     
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-800">All Users</h2>
         <span className="text-gray-500 font-medium">
@@ -45,7 +47,7 @@ const AllUsers = () => {
         </span>
       </div>
 
-      {/* FILTER BUTTONS */}
+    
       <div className="flex gap-3 mb-4">
         {["all", "active", "blocked"].map((status) => (
           <button
@@ -60,7 +62,7 @@ const AllUsers = () => {
         ))}
       </div>
 
-      {/* TABLE */}
+     
       <div className="overflow-x-auto shadow-lg rounded-xl border border-gray-200 bg-white">
         <table className="table table-zebra-sm">
           <thead className="bg-gray-100 text-gray-700 text-sm uppercase">
@@ -79,7 +81,7 @@ const AllUsers = () => {
               <tr key={user._id} className="hover:bg-gray-50 transition-all">
                 <td className="font-medium text-gray-600">{index + 1}</td>
 
-                {/* USER AVATAR */}
+               
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -98,7 +100,7 @@ const AllUsers = () => {
                   </div>
                 </td>
 
-                {/* EMAIL */}
+               
                 <td className="text-gray-700">
                   <div className="flex items-center gap-1">
                     <Mail size={15} className="text-gray-400" />
@@ -106,7 +108,7 @@ const AllUsers = () => {
                   </div>
                 </td>
 
-                {/* ROLE */}
+               
                 <td>
                   <span
                     className={`badge ${
@@ -121,7 +123,7 @@ const AllUsers = () => {
                   </span>
                 </td>
 
-                {/* STATUS */}
+              
                 <td>
                   <span
                     className={`badge ${
@@ -134,11 +136,11 @@ const AllUsers = () => {
                   </span>
                 </td>
 
-                {/* ACTION BUTTONS */}
+               
                 <td>
                   <div className="flex items-center gap-2 justify-center">
 
-                    {/* BLOCK */}
+                    
                     {user.status === "active" && (
                       <button
                         onClick={() => updateUserStatus(user._id, "blocked")}
@@ -149,7 +151,7 @@ const AllUsers = () => {
                       </button>
                     )}
 
-                    {/* UNBLOCK */}
+                  
                     {user.status === "blocked" && (
                       <button
                         onClick={() => updateUserStatus(user._id, "active")}
@@ -160,7 +162,7 @@ const AllUsers = () => {
                       </button>
                     )}
 
-                    {/* MAKE VOLUNTEER */}
+                   
                     {user.role === "donor" && (
                       <button
                         onClick={() => updateUserRole(user._id, "volunteer")}
@@ -171,7 +173,7 @@ const AllUsers = () => {
                       </button>
                     )}
 
-                    {/* MAKE ADMIN */}
+                   
                     {user.role !== "Admin" && (
                       <button
                         onClick={() => updateUserRole(user._id, "Admin")}

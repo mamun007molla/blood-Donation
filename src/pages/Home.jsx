@@ -1,18 +1,22 @@
 import { Link} from "react-router";
 import Navbar from "../components/Header/Navbar";
+import { useEffect } from "react";
 
 const Home = () => {
+     useEffect(() => {
+        document.title = "Home | BloodCare";
+      }, []);
   return (
     <div>
-      {/* ================= NAVBAR ================= */}
+     
       <nav className="bg-white shadow sticky top-0 z-50">
         <Navbar />
       </nav>
 
-      {/* Banner Section */}
+      
       <div className="hero min-h-[80vh] bg-linear-to-r from-red-500 to-rose-500 text-white">
         <div className="hero-content flex flex-col lg:flex-row items-center gap-10">
-          {/* Text Section */}
+         
           <div className="max-w-xl">
             <h1 className="text-5xl font-extrabold leading-tight">
               Save Lives, Donate Blood ❤️
@@ -23,7 +27,7 @@ const Home = () => {
             </p>
 
             <div className="flex gap-4 mt-8">
-              {/* Join Donor button */}
+             
               <Link
                 to="/register"
                 className="px-6 py-3 rounded-full bg-white text-red-600 font-semibold shadow-md hover:shadow-lg hover:-translate-y-1 transition"
@@ -31,7 +35,7 @@ const Home = () => {
                 Join as a Donor
               </Link>
 
-              {/* Search Donors button */}
+             
               <Link
                 to="/searchDonor"
                 className="px-6 py-3 rounded-full border-2 border-white text-white hover:bg-white hover:text-red-600 font-semibold transition"
@@ -41,7 +45,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Banner Image */}
+          
           <img
             src="https://www.surjen.com/resources/assets/uploads/post/2025-10-071228336.jpg"
             alt=""
@@ -50,7 +54,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Featured Section */}
+    
       <div className="max-w-6xl mx-auto mt-20 px-6">
         <h2 className="text-3xl font-bold text-center text-gray-800">
           Featured Actions
@@ -59,10 +63,10 @@ const Home = () => {
           Explore opportunities to contribute
         </p>
 
-        {/* Custom cards or content can go here */}
+        
       </div>
 
-      {/* Contact Section */}
+  
       <div className="max-w-6xl mx-auto mt-20 px-6 pb-20">
         <h2 className="text-3xl font-bold text-center text-gray-800">
           Contact Us
@@ -72,7 +76,7 @@ const Home = () => {
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Form */}
+         
           <form className="bg-white p-8 rounded-2xl shadow-lg">
             <input
               type="text"
@@ -93,7 +97,7 @@ const Home = () => {
             </button>
           </form>
 
-          {/* Info */}
+         
           <div className="flex flex-col justify-center">
             <p className="text-lg text-gray-700">
               📞 Contact: +880 123 456 789
@@ -105,10 +109,10 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ================= FOOTER ================= */}
+    
       <footer className="bg-slate-800 text-gray-300 py-10 px-6">
         <div className="max-w-7xl mx-auto grid sm:grid-cols-3 gap-8">
-          {/* About */}
+          
           <div>
             <h3 className="text-xl font-semibold mb-3 text-white">BloodCare</h3>
             <p>
@@ -117,7 +121,7 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Links */}
+          
           <div>
             <h3 className="text-xl font-semibold mb-3 text-white">
               Useful Links
@@ -146,7 +150,7 @@ const Home = () => {
             </ul>
           </div>
 
-          {/* Social */}
+          
           <div>
             <h3 className="text-xl font-semibold mb-3 text-white">Connect</h3>
             <p>Facebook</p>

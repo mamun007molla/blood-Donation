@@ -6,17 +6,19 @@ import {
   UserRoundCheck,
   House,
 } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const AdminAside = () => {
   const { role, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-
+ useEffect(() => {
+    document.title = "Dashboard | BloodCare";
+  }, []);
   const handleSignout = () => {
     signOutUser();
-    navigate("/"); // redirect to home page
+    navigate("/"); 
   };
 
   if (!role) {
@@ -27,7 +29,7 @@ const AdminAside = () => {
     );
   }
 
-  // ⭐ Add Home button here
+ 
   const homeMenu = { name: "Home", icon: House, path: "/" };
 
   const menu = [

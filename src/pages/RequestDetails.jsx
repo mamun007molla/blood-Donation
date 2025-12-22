@@ -5,12 +5,15 @@ import { ArrowLeft } from "lucide-react";
 
 const RequestDetails = () => {
   const { id } = useParams();
+   useEffect(() => {
+      document.title = "Request Details | BloodCare";
+    }, []);
   const navigate = useNavigate();
   const [request, setRequest] = useState(null);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/requests/${id}`)
+      .get(`https://mission11scic.vercel.app/requests/${id}`)
       .then((res) => setRequest(res.data));
   }, [id]);
 
@@ -34,14 +37,31 @@ const RequestDetails = () => {
       <h2 className="text-2xl font-bold mb-4">Donation Request Details</h2>
 
       <div className="space-y-3">
-        <p><strong>Recipient:</strong> {request.recipientName}</p>
-        <p><strong>Location:</strong> {request.recipientDistrict}, {request.recipientUpazila}</p>
-        <p><strong>Hospital:</strong> {request.hospitalName}</p>
-        <p><strong>Address:</strong> {request.address}</p>
-        <p><strong>Date:</strong> {request.donationDate}</p>
-        <p><strong>Time:</strong> {request.donationTime}</p>
-        <p><strong>Blood Group:</strong> {request.bloodGroup}</p>
-        <p><strong>Status:</strong> {request.donationStatus}</p>
+        <p>
+          <strong>Recipient:</strong> {request.recipientName}
+        </p>
+        <p>
+          <strong>Location:</strong> {request.recipientDistrict},{" "}
+          {request.recipientUpazila}
+        </p>
+        <p>
+          <strong>Hospital:</strong> {request.hospitalName}
+        </p>
+        <p>
+          <strong>Address:</strong> {request.address}
+        </p>
+        <p>
+          <strong>Date:</strong> {request.donationDate}
+        </p>
+        <p>
+          <strong>Time:</strong> {request.donationTime}
+        </p>
+        <p>
+          <strong>Blood Group:</strong> {request.bloodGroup}
+        </p>
+        <p>
+          <strong>Status:</strong> {request.donationStatus}
+        </p>
       </div>
     </div>
   );

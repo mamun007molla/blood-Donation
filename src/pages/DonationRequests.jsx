@@ -5,10 +5,12 @@ import axios from "axios";
 const DonationRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-
+ useEffect(() => {
+    document.title = "Donation Requests | BloodCare";
+  }, []);
   useEffect(() => {
     axios
-      .get("http://localhost:3000/requests/pending")
+      .get("https://mission11scic.vercel.app/requests/pending")
       .then((res) => setRequests(res.data))
       .finally(() => setLoading(false));
   }, []);
@@ -23,7 +25,6 @@ const DonationRequests = () => {
 
   return (
     <div className="min-h-screen bg-red-50 pt-24 pb-12">
-
       <h1 className="text-center text-4xl font-extrabold text-gray-800 mb-10">
         Active Blood Requests ❤️
       </h1>
@@ -35,7 +36,6 @@ const DonationRequests = () => {
       )}
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-6">
-
         {requests.map((req) => (
           <div
             key={req._id}
@@ -56,8 +56,7 @@ const DonationRequests = () => {
 
             <p className="text-gray-700 font-medium mt-2">
               📅 {req.donationDate}
-              <br />
-              ⏰ {req.donationTime}
+              <br />⏰ {req.donationTime}
             </p>
 
             <Link
@@ -66,10 +65,8 @@ const DonationRequests = () => {
             >
               View Details
             </Link>
-
           </div>
         ))}
-
       </div>
     </div>
   );

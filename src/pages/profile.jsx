@@ -3,6 +3,9 @@ import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 
 const ProfilePage = () => {
+   useEffect(() => {
+      document.title = "Profile | BloodCare";
+    }, []);
   const { user } = useContext(AuthContext);
 
   const [edit, setEdit] = useState(false);
@@ -17,12 +20,12 @@ const ProfilePage = () => {
     photoURL: "",
   });
 
-  // LOAD PROFILE DATA
+  
   useEffect(() => {
     if (!user?.email) return;
 
     axios
-      .get(`http://localhost:3000/users/role/${user.email}`)
+      .get(`https://mission11scic.vercel.app/users/role/${user.email}`)
       .then((res) => {
         const data = res.data;
 
@@ -39,10 +42,13 @@ const ProfilePage = () => {
       });
   }, [user]);
 
-  // SAVE CHANGES
+  
   const handleSave = () => {
     axios
-      .patch(`http://localhost:3000/users/update/${user.email}`, formData)
+      .patch(
+        `https://mission11scic.vercel.app/users/update/${user.email}`,
+        formData
+      )
       .then(() => {
         alert("Profile Updated!");
         setEdit(false);
@@ -60,14 +66,11 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f7fb] p-6 flex items-center justify-center">
-
       <div className="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-8 border">
-
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           My Profile
         </h1>
 
-        {/* PHOTO */}
         <div className="flex justify-center mb-6">
           <img
             src={formData.photoURL}
@@ -75,7 +78,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        {/* BUTTONS */}
+       
         {!edit ? (
           <button
             onClick={() => setEdit(true)}
@@ -92,10 +95,9 @@ const ProfilePage = () => {
           </button>
         )}
 
-        {/* FORM */}
+       
         <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-          {/* NAME */}
+         
           <div>
             <label className="text-sm text-gray-600">Full Name</label>
             <input
@@ -109,7 +111,6 @@ const ProfilePage = () => {
             />
           </div>
 
-          {/* EMAIL */}
           <div>
             <label className="text-sm text-gray-600">Email</label>
             <input
@@ -120,7 +121,7 @@ const ProfilePage = () => {
             />
           </div>
 
-          {/* DISTRICT */}
+          
           <div>
             <label className="text-sm text-gray-600">District</label>
             <input
@@ -134,7 +135,7 @@ const ProfilePage = () => {
             />
           </div>
 
-          {/* UPAZILA */}
+          
           <div>
             <label className="text-sm text-gray-600">Upazila</label>
             <input
@@ -148,7 +149,7 @@ const ProfilePage = () => {
             />
           </div>
 
-          {/* BLOOD GROUP */}
+          
           <div>
             <label className="text-sm text-gray-600">Blood Group</label>
             <input
@@ -161,9 +162,7 @@ const ProfilePage = () => {
               className="w-full mt-1 p-3 border rounded-lg bg-gray-50"
             />
           </div>
-
         </form>
-
       </div>
     </div>
   );

@@ -3,6 +3,9 @@ import axios from "axios";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const MyDonationRequests = () => {
+   useEffect(() => {
+      document.title = "My Donation Requests | BloodCare";
+    }, []);
   const [requests, setRequests] = useState([]);
   const [filterValue, setFilterValue] = useState("all");
   const [page, setPage] = useState(1);
@@ -15,7 +18,7 @@ const MyDonationRequests = () => {
 
   const fetchData = useCallback(async () => {
     const res = await axios.get(
-      `http://localhost:3000/requests/user/${user.email}?page=${page}&size=${size}&status=${filterValue}`
+      `https://mission11scic.vercel.app/requests/user/${user.email}?page=${page}&size=${size}&status=${filterValue}`
     );
 
     setRequests(res.data.result || []);
@@ -33,17 +36,17 @@ const MyDonationRequests = () => {
 
   const deleteRequest = async (id) => {
     if (confirm("Are you sure you want to delete this request?")) {
-      await axios.delete(`http://localhost:3000/requests/${id}`);
+      await axios.delete(`https://mission11scic.vercel.app/requests/${id}`);
       fetchData();
     }
   };
 
-  // ⭐ Only Admin can update status
+  
   const updateStatus = async (id, newStatus) => {
     if (role !== "Admin") return alert("You are not allowed!");
 
     await axios.patch(
-      `http://localhost:3000/requests/update-status/${id}`,
+      `https://mission11scic.vercel.app/requests/update-status/${id}`,
       { donationStatus: newStatus }
     );
 
@@ -54,39 +57,38 @@ const MyDonationRequests = () => {
     );
   };
 
-  // ⭐ Save edited data (status বাদে সব আপডেট)
+  
   const saveEdit = async () => {
-  const id = editItem._id;
-  const updated = { ...editItem };
+    const id = editItem._id;
+    const updated = { ...editItem };
 
-  delete updated._id;
-  delete updated.donationStatus;
+    delete updated._id;
+    delete updated.donationStatus;
 
-  try {
-    const res = await axios.patch(
-      `http://localhost:3000/requests/update/${id}`,
-      updated
-    );
+    try {
+      const res = await axios.patch(
+        `https://mission11scic.vercel.app/requests/update/${id}`,
+        updated
+      );
 
-    if (res.data.modifiedCount > 0) {
-      alert("Updated successfully!");
-      fetchData();   // refresh data
-      setEditItem(null);
-    } else {
-      alert("Nothing updated!");
+      if (res.data.modifiedCount > 0) {
+        alert("Updated successfully!");
+        fetchData(); 
+        setEditItem(null);
+      } else {
+        alert("Nothing updated!");
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Update failed!");
     }
-  } catch (err) {
-    console.log(err);
-    alert("Update failed!");
-  }
-};
-
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto p-5">
       <h1 className="text-2xl font-bold mb-4">My Donation Requests</h1>
 
-      {/* FILTER BUTTON */}
+     
       <div className="flex gap-2 mb-6">
         {["all", "pending", "inprogress", "done", "canceled"].map((status) => (
           <button
@@ -101,7 +103,7 @@ const MyDonationRequests = () => {
         ))}
       </div>
 
-      {/* TABLE */}
+      
       <div className="overflow-x-auto">
         <table className="table-auto w-full border text-left">
           <thead>
@@ -159,14 +161,13 @@ const MyDonationRequests = () => {
                     Delete
                   </button>
                 </td>
-
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* PAGINATION */}
+     
       <div className="flex justify-center items-center mt-6 gap-3">
         <button
           disabled={page === 1}
@@ -189,11 +190,10 @@ const MyDonationRequests = () => {
         </button>
       </div>
 
-      {/* EDIT MODAL */}
+     
       {editItem && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-5 rounded w-96 space-y-3">
-
             <h2 className="text-xl font-bold">Edit Request</h2>
 
             <input
@@ -273,11 +273,9 @@ const MyDonationRequests = () => {
                 Save
               </button>
             </div>
-
           </div>
         </div>
       )}
-
     </div>
   );
 };

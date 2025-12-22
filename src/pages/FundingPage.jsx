@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaHandHoldingHeart } from "react-icons/fa";
 
 const FundingPage = () => {
   const { user } = useContext(AuthContext);
-
+ useEffect(() => {
+    document.title = "Donate Fund | BloodCare";
+  }, []);
   const handleIntent = (e) => {
     e.preventDefault();
     const donateAmount = e.target.donateAmount.value;
@@ -20,17 +22,19 @@ const FundingPage = () => {
     const formData = { donateAmount, donorEmail, donorName };
 
     axios
-      .post("http://localhost:3000/create-payment-checkout", formData)
+      .post(
+        "https://mission11scic.vercel.app/create-payment-checkout",
+        formData
+      )
       .then((res) => {
         window.location.href = res.data.url;
       });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-100 flex items-center justify-center px-4 py-10">
+    <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-rose-100 flex items-center justify-center px-4 py-10">
       <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-lg w-full border border-red-100">
         
-        {/* Header */}
         <div className="text-center mb-8">
           <FaHandHoldingHeart className="mx-auto text-red-600 text-5xl mb-3" />
           <h1 className="text-3xl font-extrabold text-gray-800">
@@ -42,20 +46,14 @@ const FundingPage = () => {
           </p>
         </div>
 
-        {/* User Info */}
+       
         <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 mb-6">
-          <p className="text-sm text-gray-600">
-            Donating as:
-          </p>
-          <p className="font-semibold text-gray-800">
-            {user?.displayName}
-          </p>
-          <p className="font-medium text-gray-500 text-sm">
-            {user?.email}
-          </p>
+          <p className="text-sm text-gray-600">Donating as:</p>
+          <p className="font-semibold text-gray-800">{user?.displayName}</p>
+          <p className="font-medium text-gray-500 text-sm">{user?.email}</p>
         </div>
 
-        {/* Form */}
+      
         <form onSubmit={handleIntent} className="space-y-6">
           <div>
             <label className="block text-gray-700 font-semibold mb-2">
@@ -71,14 +69,12 @@ const FundingPage = () => {
             />
           </div>
 
-          <button
-            className="w-full btn bg-gradient-to-r from-red-600 to-rose-500 border-none text-white text-lg shadow-lg hover:scale-[1.02] transition transform"
-          >
+          <button className="w-full btn bg-linear-to-r from-red-600 to-rose-500 border-none text-white text-lg shadow-lg hover:scale-[1.02] transition transform">
             Donate Now 💝
           </button>
         </form>
 
-        {/* Footer */}
+       
         <p className="text-xs text-center text-gray-500 mt-6">
           100% Secure Stripe Payment ✨
         </p>

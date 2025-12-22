@@ -6,7 +6,9 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { useAxiosSecure } from "../../hooks/useAxiosSecure";
 
 const AddRequest = () => {
-  
+   useEffect(() => {
+      document.title = "Add Request | BloodCare";
+    }, []);
   const [districtData, setDistrictData] = useState([]);
   const [upazilaData, setUpazilaData] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -63,10 +65,10 @@ const AddRequest = () => {
           Create Donation Request
         </h2>
 
-        {/* Form */}
+      
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
 
-          {/* requester info - row */}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="font-semibold flex items-center gap-2">
@@ -95,7 +97,7 @@ const AddRequest = () => {
             </div>
           </div>
 
-          {/* recipient */}
+         
           <div>
             <label className="font-semibold flex items-center gap-2">
               <UserPlus size={18} /> Recipient Name
@@ -108,7 +110,7 @@ const AddRequest = () => {
             />
           </div>
 
-          {/* district + upazila */}
+        
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="font-semibold flex items-center gap-2">
@@ -143,7 +145,7 @@ const AddRequest = () => {
             </div>
           </div>
 
-          {/* hospital */}
+        
           <div>
             <label className="font-semibold flex items-center gap-2">
               <Hospital size={18} /> Hospital Name
@@ -156,7 +158,7 @@ const AddRequest = () => {
             />
           </div>
 
-          {/* address */}
+         
           <div>
             <label className="font-semibold flex items-center gap-2">
               <MapPin size={18} /> Address
@@ -169,7 +171,7 @@ const AddRequest = () => {
             />
           </div>
 
-          {/* date + time */}
+         
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="font-semibold flex items-center gap-2">
@@ -196,7 +198,7 @@ const AddRequest = () => {
             </div>
           </div>
 
-          {/* blood group */}
+          
           <div>
             <label className="font-semibold flex items-center gap-2">
               <Droplet size={18} /> Blood Group
@@ -213,7 +215,7 @@ const AddRequest = () => {
             </select>
           </div>
 
-          {/* message */}
+          
           <div>
             <label className="font-semibold flex items-center gap-2">
               <FileText size={18} /> Request Message

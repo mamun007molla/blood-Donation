@@ -1,16 +1,43 @@
-# React + Vite
+# 🩸 Blood Donation Platform — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A platform where blood donors and blood seekers can connect easily.  
+Users can request blood, find donors by group/location & register as a donor to help others in need.
 
-Currently, two official plugins are available:
+🔗 **Live Website:** https://pawmartclient321.firebaseapp.com/  
+📁 **Client Repository:** https://github.com/mamun007molla/blood-Donation  
+🖥️ **Backend API Repository:** https://github.com/mamun007molla/blood-donation-server
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
+- 🩸 Create blood request
+- ❤️ User can register as donor
+- 🔍 Search donors via **blood group / area**
+- 🔐 Firebase Authentication (Email & Password)
+- 📱 Fully responsive UI (Mobile + Desktop)
+- 🌐 Integrated with Express & MongoDB backend
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
+| Category | Technology |
+|----------|-------------|
+| Library | React.js |
+| Styling | Tailwind CSS |
+| Routing | React Router |
+| Auth | Firebase Authentication |
+| Data Fetching | Axios |
+| Hosting | Firebase Hosting |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📦 Dependencies
+```json
+"dependencies": {
+  "axios": "^1.5.0",
+  "firebase": "^9.0.0",
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0",
+  "react-router-dom": "^6.3.0",
+  "tailwindcss": "^3.0.0"
+}

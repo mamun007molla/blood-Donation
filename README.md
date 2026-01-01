@@ -41,3 +41,21 @@ Users can request blood, find donors by group/location & register as a donor to 
   "react-router-dom": "^6.3.0",
   "tailwindcss": "^3.0.0"
 }
+
+---
+
+## 📂 Folder Structure
+blood-Donation/
+|
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── context/
+│   ├── firebase/
+│   ├── pages/
+│   ├── App.jsx
+│   └── main.jsx
+|
+├── .env.local   (not pushed to GitHub)
+└── package.json
